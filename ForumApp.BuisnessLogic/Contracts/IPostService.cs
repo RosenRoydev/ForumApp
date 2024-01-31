@@ -9,6 +9,7 @@ namespace ForumApp.BuisnessLogic.Contracts
 {
     public interface IPostService
     {
+        Task AddAsync(PostViewModel model);
         Task<IEnumerable<PostViewModel>> GetAllPostsAsync();
     }
 }

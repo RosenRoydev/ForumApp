@@ -1,6 +1,7 @@
 ﻿using ForumApp.BuisnessLogic.Contracts;
 using ForumApp.BuisnessLogic.Models;
 using ForumApp.Infrastructure.Data;
+using ForumApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,18 @@ namespace ForumApp.BuisnessLogic.Services
         public PostService(ForumAppDbContext _dbContext)
         {
             dbContext = _dbContext;
+        }
+
+        public async Task AddAsync(PostViewModel model)
+        {
+            var entity = new Post
+            {
+                Title = model.Title,
+                Content = model.Content,
+            };
+
+            await dbContext.AddAsync(entity);
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<PostViewModel>> GetAllPostsAsync()
