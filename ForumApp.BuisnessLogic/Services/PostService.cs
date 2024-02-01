@@ -31,6 +31,8 @@ namespace ForumApp.BuisnessLogic.Services
             await dbContext.SaveChangesAsync();
         }
 
+        
+
         public async Task<IEnumerable<PostViewModel>> GetAllPostsAsync()
         {
             return await dbContext.Posts
@@ -44,6 +46,18 @@ namespace ForumApp.BuisnessLogic.Services
                 .ToListAsync();    
               
                 
+        }
+
+        public async Task<PostViewModel?> GetByIdAsync(int id)
+        {
+            return await dbContext.Posts
+                .Where(p => p.Id == id)
+                .Select(p => new PostViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Content = p.Content
+                }).FirstOrDefaultAsync();
         }
     }
 }

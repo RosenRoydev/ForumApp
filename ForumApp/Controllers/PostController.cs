@@ -1,5 +1,6 @@
 ﻿using ForumApp.BuisnessLogic.Contracts;
 using ForumApp.BuisnessLogic.Models;
+using ForumApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumApp.Controllers
@@ -19,23 +20,34 @@ namespace ForumApp.Controllers
         }
 
         [HttpGet]
-       public IActionResult Add ()
+        public IActionResult Add()
         {
             var model = new PostViewModel();
-                return View(model);
+            return View(model);
         }
 
         [HttpPost]
-        public async Task <IActionResult> Add(PostViewModel model)
+        public async Task<IActionResult> Add(PostViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View (model);
+                return View(model);
             }
 
-           await postService.AddAsync(model);
+            await postService.AddAsync(model);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        
+        
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            PostViewModel? model = await postService.GetByIdAsync(id);
+
+            return View(model);
         }
     }
 }
