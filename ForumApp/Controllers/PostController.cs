@@ -62,5 +62,14 @@ namespace ForumApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(PostViewModel model)
+        {
+            
+            await postService.DeleteAsync(model);
+
+            return RedirectToAction(nameof (Index));
+        }
+
     }
 }
