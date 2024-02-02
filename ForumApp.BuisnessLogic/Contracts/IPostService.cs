@@ -11,7 +11,7 @@ namespace ForumApp.BuisnessLogic.Contracts
     public interface IPostService
     {
         Task AddAsync(PostViewModel model);
-        
+        Task EditAsync(PostViewModel model);
         Task<IEnumerable<PostViewModel>> GetAllPostsAsync();
         Task<PostViewModel?> GetByIdAsync(int id);
     }

@@ -31,7 +31,20 @@ namespace ForumApp.BuisnessLogic.Services
             await dbContext.SaveChangesAsync();
         }
 
-        
+        public async Task EditAsync(PostViewModel model)
+        {
+            var entity = await dbContext.Posts.FindAsync(model.Id);
+                
+            if (entity == null)
+            {
+                throw new ApplicationException("The model does not exist");
+            }
+            
+            entity.Title = model.Title;
+            entity.Content = model.Content;
+
+            await dbContext.SaveChangesAsync();
+        }
 
         public async Task<IEnumerable<PostViewModel>> GetAllPostsAsync()
         {
